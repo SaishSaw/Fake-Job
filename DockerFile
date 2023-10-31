@@ -1,0 +1,24 @@
+# Use a base image with Python 3.9
+FROM python:3.9-slim
+# Install required dependencies
+RUN apt-get update && apt-get install -y cmake 
+
+WORKDIR /pythondir
+COPY . /pythondir
+EXPOSE 8501
+
+# Installing gensim models.
+RUN pip install gensim && python -c "import gensim.downloader as api; api.load('glove-wiki-gigaword-300')"
+
+
+#Install nltk stopwords.
+RUN pip install nltk && python -c "import nltk; nltk.download('stopwords');nltk.download('words');nltk.download('wordnet')"
+
+# Install required dependencies
+RUN apt-get update && apt-get install -y cmake 
+
+# Set CMAKE_PREFIX_PATH if necessary
+#ENV CMAKE_PREFIX_PATH=/path/to/arrow
+
+RUN pip install -r requirements.txt
+CMD streamlit run server.py

@@ -1,0 +1,8 @@
+streamlit
+scikit-learn
+pandas
+numpy
+altair
+nltk
+gensim
+imbalanced-learn
